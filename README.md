@@ -16,10 +16,11 @@ Sandbox API Repository to describe, develop, document, and test the DeviceAuthen
 ## Scope
 
 * Service API(s) “DeviceAuthenticity” (see APIBacklog.md) 
-* The API(s) provide(s) the API consumer with the ability to:  
-  * §Short API scope description§ !! Add here a scope description according to the API proposal
+* The API provides the API consumer with the ability to:  
+  * Determine whether a given device associated with the provided device identifier is subject to any restrictions or risk flags.
+  * Provide a clear overall status describing the device’s condition.
 * Describe, develop, document, and test the API(s)
-* Started: §start date§
+* Started: **December 2025**
 <!-- * Incubating stage since: {{incubation date}} --> 
 
 <!-- CAMARA:RELEASE-INFO:START -->
