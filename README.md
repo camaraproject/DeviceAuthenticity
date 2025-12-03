@@ -9,10 +9,7 @@
 
 # DeviceAuthenticity
 
-The **DeviceAuthenticity API** enables applications to verify the authenticity and fraud status of mobile devices using their device identifier, e.g. the International Mobile Equipment Identity (IMEI).  
-It helps identify whether a device is reported as **lost, stolen, blacklisted, blocked, involved in fraud, non-payment, or subject to regulatory action in operator or global equipment databases**.
-
-This API enhances trust and security in device trade-ins, insurance verification, and consumer marketplaces.
+Sandbox API Repository to describe, develop, document, and test the DeviceAuthenticity Service API(s). The repository does not yet belong to a CAMARA Sub Project.
 
 * API Repository [wiki page](https://lf-camaraproject.atlassian.net/wiki/x/czLe)
 
@@ -20,12 +17,8 @@ This API enhances trust and security in device trade-ins, insurance verification
 
 * Service API(s) “DeviceAuthenticity” (see APIBacklog.md) 
 * The API provides the API consumer with the ability to:  
-  * Verify IMEI: Check if the IMEI is valid.
-  * Check device status: See if the device is lost, stolen, blacklisted, involved in fraud/non-payment, or restricted by regulations.
-  * Return clear status codes like ALLOWED, PROHIBITED, TRACKED, UNKNOWN.
-  * It also returns sub-statuses LOST, STOLEN, BLACKLISTED, BLOCKED, FRAUD, NON_PAYMENT, REGULATORY.
-  * Documentation and testing: Provide examples, test scenarios, and clear API docs.
-  * Support future updates like batch checks or links to other CAMARA APIs.
+  * Determine whether a given device associated with the provided device identifier is subject to any restrictions or risk flags.
+  * Provide a clear overall status describing the device’s condition.
 * Describe, develop, document, and test the API(s)
 * Started: **December 2025**
 <!-- * Incubating stage since: {{incubation date}} --> 
