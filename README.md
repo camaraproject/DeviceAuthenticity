@@ -9,7 +9,7 @@
 
 # DeviceAuthenticity
 
-The **DeviceAuthenticity API** enables applications to verify the authenticity and fraud status of mobile devices using their International Mobile Equipment Identity (IMEI).  
+The **DeviceAuthenticity API** enables applications to verify the authenticity and fraud status of mobile devices using their device identifier, e.g. the International Mobile Equipment Identity (IMEI).  
 It helps identify whether a device is reported as **lost, stolen, blacklisted, blocked, involved in fraud, non-payment, or subject to regulatory action in operator or global equipment databases**.
 
 This API enhances trust and security in device trade-ins, insurance verification, and consumer marketplaces.
