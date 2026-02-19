@@ -29,9 +29,6 @@ Sandbox API Repository to describe, develop, document, and test the DeviceAuthen
 ## Release Information
 
 The repository has no (pre)releases yet, work in progress is within the main branch.
-
----
-_This section is automatically synchronized by CAMARA project-administration from [data/releases-master.yaml](https://github.com/camaraproject/project-administration/blob/main/data/releases-master.yaml)._
 <!-- CAMARA:RELEASE-INFO:END -->
 
 ## Contributing
