@@ -60,7 +60,7 @@ info:
     If the request is valid, the API response is a JSON object containing the device status and register information:
     - The response will always contain `imei` and `operationalStatus`.
     - A `lastChecked` field indicates when the information was last verified
-    - If the device has a negative status, `reportedDate` and `prohibitedReason` may be included if available
+    - If the device has a negative status, `reportedDate` may be included if available
     - Other response parameters are implementation dependent
 
     An example of a JSON response object is as follows:
@@ -83,7 +83,8 @@ info:
     5. If the device is blocked due to non-payment, the status is "non-payment"
     6. If the device is flagged for fraud, the status is "fraud"
     7. If the device is on the **stolen list**: status is "stolen"
-    4. If the device is not on any list: status is "unknown"
+    8. If the device is on the **allowed list** and not on any prohibited list: status is "allowed"
+    9. If the device is not on any list: status is "unknown"
 
     ## Error handling
 
@@ -205,7 +206,7 @@ components:
         $ref: "#/components/schemas/XCorrelator"
 
   headers:
-    X-Correlator:
+    x-correlator:
       description: Correlation id for the different services
       required: false
       schema:
@@ -216,7 +217,7 @@ components:
       description: IMEI register status has been successfully retrieved
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -224,6 +225,12 @@ components:
               - $ref: "#/components/schemas/CommonResponseBody"
               - $ref: "#/components/schemas/ImeiStatus"
           examples:
+            Allowed IMEI:
+              description: IMEI status check for a device confirmed on the allowed list
+              value:
+                lastChecked: "2024-02-20T10:41:38.657Z"
+                imei: "490154203237526"
+                operationalStatus: "allowed"
             Lost IMEI:
               description: IMEI status check for a lost device
               value:
@@ -279,7 +286,7 @@ components:
       description: Bad Request
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -312,7 +319,7 @@ components:
       description: Unauthorized
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -338,7 +345,7 @@ components:
       description: Forbidden
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -364,7 +371,7 @@ components:
       description: Not found
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -390,7 +397,7 @@ components:
       description: Unprocessable Content
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -416,7 +423,7 @@ components:
       description: Too Many Requests
       headers:
         x-correlator:
-          $ref: "#/components/headers/X-Correlator"
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -448,6 +455,7 @@ components:
   schemas:
     CommonResponseBody:
       description: Common parameters included in all responses
+      type: object
       properties:
         lastChecked:
           description: |
@@ -459,6 +467,10 @@ components:
     ImeiStatus:
       description: The register and operational status information for the queried IMEI
       type: object
+      required:
+        - imei
+        - operationalStatus
+        - reportedDate
       properties:
         imei:
           type: string
@@ -469,6 +481,7 @@ components:
           type: string
           description: The operational status of the device, determined by register presence
           enum:
+            - allowed
             - lost
             - stolen
             - blacklisted
@@ -482,7 +495,7 @@ components:
           type: string
           format: date-time
           description: |
-            Date and time when the IMEI was reported with its current prohibited status (only present when operationalStatus is "blacklisted"). It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
+            Date and time when the IMEI was reported with its current prohibited status. May be present when the device has any negative operational status (e.g. lost, stolen, blacklisted, blocked, fraud, non-payment, regulatory). It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
           example: "2023-05-23T21:48:42.000Z"
 
     ErrorInfo:
