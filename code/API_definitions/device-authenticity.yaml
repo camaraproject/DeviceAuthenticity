@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: DeviceAuthenticity
-  version: wip
+  version: 0.1.0-alpha.1-alpha.1
   description: |
     # Summary
 
@@ -135,7 +135,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-camara-commonalities: 0.6
+  x-camara-commonalities: 0.6.1
 
 
 servers:

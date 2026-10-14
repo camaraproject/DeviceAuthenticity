@@ -1,5 +1,5 @@
 @Device_Authenticity
-Feature: CAMARA DeviceAuthenticity API, vwip - Operation checkImeiStatus
+Feature: CAMARA DeviceAuthenticity API, v0.1.0-alpha.1-alpha.1 - Operation checkImeiStatus
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
