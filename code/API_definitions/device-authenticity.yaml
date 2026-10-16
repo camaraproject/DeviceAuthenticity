@@ -86,6 +86,13 @@ info:
     8. If the device is on the **allowed list** and not on any prohibited list: status is "allowed"
     9. If the device is not on any list: status is "unknown"
 
+    <!-- CAMARA:MANDATORY:request-body-strictness:BEGIN -->
+
+    # Request body strictness
+
+    This API rejects requests with JSON request bodies that contain properties not declared in this specification, at any nesting level. Unknown properties result in a `400 INVALID_ARGUMENT` response.
+    <!-- CAMARA:MANDATORY:request-body-strictness:END -->
+
     ## Error handling
 
     Errors may be returned for the following reasons. Note that this list is not exhaustive.
@@ -116,33 +123,44 @@ info:
     `429 TOO_MANY_REQUESTS`:
     - The rate limit for API requests has been exceeded
 
-    ### Additional CAMARA error responses
+    <!-- CAMARA:MANDATORY:additional-error-responses:BEGIN -->
 
-    The list of error codes in this API specification is not exhaustive. Therefore the API specification may not document some non-mandatory error statuses as indicated in `CAMARA API Design Guide`.
+    # Additional CAMARA error responses
 
-    Please refer to the `CAMARA_common.yaml` of the Commonalities Release associated to this API version for a complete list of error responses. The applicable Commonalities Release can be identified in the `API Readiness Checklist` document associated to this API version.
+    The list of error codes in this API specification is not exhaustive. Therefore the API specification MAY not document some non-mandatory error statuses as indicated in `CAMARA API Design Guide`.
+
+    Please refer to the `CAMARA_common.yaml` of the Commonalities Release associated to this API version for a complete list of error responses. The applicable Commonalities Release can be identified from the `x-camara-commonalities` field, the changelog and the metadata of the released API version.
 
     As a specific rule, error `501 - NOT_IMPLEMENTED` can be only a possible error response if it is explicitly documented in the API.
+    <!-- CAMARA:MANDATORY:additional-error-responses:END -->
 
     # Further info and support
 
-    ## Authorization and authentication
+    <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
+
+    # Authorization and authentication
 
     The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
 
     The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the API consumer and the API provider, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+
+    In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
+    <!-- CAMARA:MANDATORY:authorization-and-authentication:END -->
 
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   x-camara-commonalities: 0.9
 
+externalDocs:
+  description: Product documentation at CAMARA
+  url: https://github.com/camaraproject/DeviceAuthenticity
 
 servers:
   - url: "{apiRoot}/device-authenticity/vwip"
     variables:
       apiRoot:
-        default: https://api.example.com
+        default: http://localhost:9091
         description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
 
 tags:
@@ -462,6 +480,7 @@ components:
             Date and time that the information was last confirmed by the fraud check service to be correct. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
           type: string
           format: date-time
+          maxLength: 29
           example: "2024-02-20T10:41:38.657Z"
 
     ImeiStatus:
@@ -475,6 +494,7 @@ components:
           type: string
           description: The IMEI that was checked
           pattern: '^[0-9]{15}$'
+          maxLength: 15
           example: "490154203237518"
         operationalStatus:
           type: string
@@ -493,6 +513,7 @@ components:
         reportedDate:
           type: string
           format: date-time
+          maxLength: 29
           description: |
             Date and time when the IMEI was reported with its current prohibited status. May be present when the device has any negative operational status (e.g. lost, stolen, blacklisted, blocked, fraud, non-payment, regulatory). It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
           example: "2023-05-23T21:48:42.000Z"
@@ -507,12 +528,17 @@ components:
       properties:
         status:
           type: integer
+          format: int32
+          minimum: 100
+          maximum: 599
           description: HTTP response status code
         code:
           type: string
+          maxLength: 80
           description: A human-readable code to describe the error
         message:
           type: string
+          maxLength: 256
           description: A human-readable description of what the error represents
 
     RequestBody:
@@ -525,12 +551,14 @@ components:
           type: string
           description: The IMEI number of the device to check (15 digits)
           pattern: '^[0-9]{15}$'
+          maxLength: 15
           example: "490154203237518"
 
     XCorrelator:
       description: Correlation ID header value used to trace requests across services
       type: string
       pattern: '^[a-zA-Z0-9-_:;.\/<>{}]{0,256}$'
+      maxLength: 256
       example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
 
   examples:

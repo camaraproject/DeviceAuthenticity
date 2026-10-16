@@ -1,4 +1,4 @@
-@Device_Authenticity
+  @Device_Authenticity
 Feature: CAMARA DeviceAuthenticity API, vwip - Operation checkImeiStatus
   # Input to be provided by the implementation to the tester
   #
@@ -207,12 +207,12 @@ Feature: CAMARA DeviceAuthenticity API, vwip - Operation checkImeiStatus
     And the response property "$.message" contains a user friendly text
 
     Examples:
-      | invalid_imei     | description                    |
-      | 12345            | fewer than 15 digits           |
-      | 1234567890123456 | more than 15 digits            |
-      | 12345678901234A  | contains a non-numeric char    |
-      | 123456789 12345  | contains a space               |
-      | 12345-6789012345 | contains a hyphen              |
+      | invalid_imei     |
+      | 12345            |
+      | 1234567890123456 |
+      | 12345678901234A  |
+      | 123456789 12345  |
+      | 12345-6789012345 |
 
   @device_authenticity_C01.03_empty_request_body
   Scenario: Empty JSON object as request body is rejected
