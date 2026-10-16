@@ -1,5 +1,5 @@
   @Device_Authenticity
-Feature: CAMARA DeviceAuthenticity API, vwip - Operation checkImeiStatus
+Feature: CAMARA DeviceAuthenticity API, v0.1.0-alpha.1 - Operation checkImeiStatus
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
@@ -21,7 +21,7 @@ Feature: CAMARA DeviceAuthenticity API, vwip - Operation checkImeiStatus
   # References to OAS spec schemas refer to schemas specified in device-authenticity.yaml
 
   Background: Common checkImeiStatus setup
-    Given the resource "{api-root}/device-authenticity/vwip/check-status" set as base-url
+    Given the resource "{api-root}/device-authenticity/v0.1alpha1/check-status" set as base-url
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" is set to a UUID value

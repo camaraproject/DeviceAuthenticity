@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: DeviceAuthenticity
-  version: wip
+  version: 0.1.0-alpha.1
   description: |
     # Summary
 
@@ -150,14 +150,14 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-camara-commonalities: 0.9
+  x-camara-commonalities: 0.9.0
 
 externalDocs:
   description: Product documentation at CAMARA
   url: https://github.com/camaraproject/DeviceAuthenticity
 
 servers:
-  - url: "{apiRoot}/device-authenticity/vwip"
+  - url: "{apiRoot}/device-authenticity/v0.1alpha1"
     variables:
       apiRoot:
         default: http://localhost:9091
